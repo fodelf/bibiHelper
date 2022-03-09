@@ -1,84 +1,22 @@
-/*
- * @Description: 描述
- * @Author: 吴文周
- * @Github: https://github.com/fodelf
- * @Date: 2022-02-25 15:34:19
- * @LastEditors: 吴文周
- * @LastEditTime: 2022-03-08 22:09:09
- */
-// main.js
-
-// 控制应用生命周期和创建原生浏览器窗口的模组
-const { app, BrowserWindow, BrowserView } = require('electron')
-const path = require('path')
-
-function createWindow() {
-  // 创建浏览器窗口
-  const win = new BrowserWindow({
-    alwaysOnTop: true,
-    // width: 310,
-    // height: 735,
-    width: 310,
-    height: 940,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      devTools: true,
-    },
-  })
-  // const view = new BrowserView()
-  // win.setBrowserView(view)
-  // view.setBounds({ x: 0, y: 0, width: 302, height: 735 })
-  win.loadURL('http://live.bilibili.com/1614034')
-  // 加载 index.html
-  // mainWindow.loadFile('index.html')
-
-  // 打开开发工具
-  win.webContents.openDevTools()
-}
-
-// 这段程序将会在 Electron 结束初始化
-// 和创建浏览器窗口的时候调用
-// 部分 API 在 ready 事件触发后才能使用。
-app.whenReady().then(() => {
-  createWindow()
-
-  app.on('activate', function () {
-    // 通常在 macOS 上，当点击 dock 中的应用程序图标时，如果没有其他
-    // 打开的窗口，那么程序会重新创建一个窗口。
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-})
-
-// 除了 macOS 外，当所有窗口都被关闭的时候退出程序。 因此，通常对程序和它们在
-// 任务栏上的图标来说，应当保持活跃状态，直到用户使用 Cmd + Q 退出。
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
-})
-
-// 在这个文件中，你可以包含应用程序剩余的所有部分的代码，
-// 也可以拆分成几个文件，然后用 require 导入。
 const express = require('express')
 const expressApp = express()
 var bodyParser = require('body-parser')
 const expressWs = require('express-ws') // 引入 WebSocket 包
-var cors = require('cors')
 expressWs(expressApp)
 expressApp.use(bodyParser.urlencoded({ extended: false }))
 expressApp.use(bodyParser.json())
-expressApp.use(cors())
-expressApp.use(express.static('public'))
 const FormData = require('form-data')
 const port = 3000
 const http = require('http')
 const axios = require('axios')
-// expressApp.all('*', function (req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*')
-//   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-//   res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
-//   res.header('X-Powered-By', ' 3.2.1')
-//   res.header('Content-Type', 'application/json;charset=utf-8')
-//   next()
-// })
+expressApp.all('*', function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+  res.header('X-Powered-By', ' 3.2.1')
+  res.header('Content-Type', 'application/json;charset=utf-8')
+  next()
+})
 expressApp.get('/getFollower', (req, res) => {
   const url =
     'https://api.bilibili.com/x/relation/stat?vmid=18113192&jsonp=jsonp'
@@ -192,21 +130,16 @@ expressApp.post('/send', (req, res) => {
       // reject(err)
     })
 })
-let WebSocket = null
 expressApp.post('/welcome', (req, res) => {
-  // console.log(req)
-  if (WebSocket) {
-    WebSocket.send(JSON.stringify(req.body))
-  }
+  console.log(req)
   res.send({ send: 'ok' })
 })
 expressApp.ws('/basic', function (ws, req) {
-  WebSocket = ws
   // console.log('connect success')
   // console.log(ws)
 
   // 使用 ws 的 send 方法向连接另一端的客户端发送数据
-  // ws.send('connect to express server with WebSocket success')
+  ws.send('connect to express server with WebSocket success')
 
   // 使用 on 方法监听事件
   //   message 事件表示从另一段（服务端）传入的数据

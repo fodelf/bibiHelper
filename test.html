@@ -1,0 +1,50 @@
+<!--
+ * @Description: 描述
+ * @Author: 吴文周
+ * @Github: https://github.com/fodelf
+ * @Date: 2022-02-27 17:29:12
+ * @LastEditors: 吴文周
+ * @LastEditTime: 2022-03-01 17:29:09
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <script>
+    //  function requestImage(){
+    //    // 这边使用常见的ajax请求 类似axios,或者原生fetch
+    //    axios.get('http://localhost:3000/img')
+    //     .then(function (response) {
+    //       console.log(response.data);
+    //       const imageUrl = response.data;
+    //       const img = document.createElement('img')
+    //       img.src = imageUrl;
+    //       document.body.appendChild(img)
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    //  }
+    //  requestImage()
+    window.list = []
+    for(var i = 0; i < 1000000; i++) {
+      list.push(i);
+    }
+    console.time("time1")
+    // list[2] = "1"
+    list.splice(10,0)
+    console.timeEnd("time1")
+    console.time("time")
+    list.splice(1,0)
+    // list[1] = "1"
+    console.timeEnd("time")
+
+  </script>
+</body>
+</html>
