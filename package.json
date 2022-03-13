@@ -1,18 +1,28 @@
 {
-  "name": "bibi",
+  "name": "bilibili",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
+  "build": {
+    "productName": "bilibiliHelper",
+    "dmg": {
+      "icon": "build/b.icns",
+      "iconSize": 120,
+      "iconTextSize": 14
+    }
+  },
   "scripts": {
     "start": "electron  main.js",
     "dev": "nodemon --delay 250ms ./app.js",
     "fl": "node  app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "17.1.0"
+    "electron": "17.1.0",
+    "electron-builder": "22.14.13"
   },
   "dependencies": {
     "axios": "0.26.0",

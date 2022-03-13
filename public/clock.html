@@ -1,0 +1,82 @@
+<!--
+ * @Description: 描述
+ * @Author: 吴文周
+ * @Github: https://github.com/fodelf
+ * @Date: 2022-03-11 09:06:34
+ * @LastEditors: 吴文周
+ * @LastEditTime: 2022-03-11 09:52:34
+-->
+<html>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- <link rel="stylesheet" href="./css/flipclock.css" /> -->
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+
+    <script src="./js/jq.js"></script>
+    <script src="./js/clock.js"></script>
+    <script src="./js/h2c.js"></script>
+  </head>
+  <body>
+    <div id="box">
+      <div id="content">
+        <div class="clock" id="flipclock"></div>
+        <!-- <h1 class="date" id="ShowDate"></h1> -->
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      // mobile
+      if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        document.getElementById("flipclock").setAttribute("style", "zoom:1.5;");
+        document.getElementById("ShowDate").setAttribute("style", "zoom:1.5;");
+      }
+
+      var clock;
+
+      $(document).ready(function () {
+        clock = $(".clock").FlipClock({
+          clockFace: "TwelveHourClock",
+          showSeconds: false,
+        });
+        var month = [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12",
+        ];
+        var week = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+        var d = new Date();
+        // document.getElementById('ShowDate').innerHTML = d.getFullYear() + "年" +(d.getMonth() + 1) + "月" + d.getDate() + "日" + ' 星期'+'日一二三四五六'.charAt(new Date().getDay());
+        const time = $(
+          `<div>${d.getFullYear()}-${month[d.getMonth()]} -${d.getDate()} , ${
+            week[d.getDay()]
+          } </div>`
+        );
+        $(".flip-clock-meridium li").append(time);
+        // document.body.requestFullScreen();
+        // setTimeout(() => {
+        //   html2canvas(document.body).then(function (canvas) {
+        //     var img = document.createElement("a");
+        //     img.href = canvas
+        //       .toDataURL("image/jpeg")
+        //       .replace("image/jpeg", "image/octet-stream");
+        //     img.download = "invite.jpg";
+        //     img.click();
+        //   });
+        // }, 1000);
+      });
+    </script>
+  </body>
+</html>
