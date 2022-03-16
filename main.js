@@ -4,7 +4,7 @@
  * @Github: https://github.com/fodelf
  * @Date: 2022-02-25 15:34:19
  * @LastEditors: 吴文周
- * @LastEditTime: 2022-03-10 22:20:27
+ * @LastEditTime: 2022-03-15 08:31:16
  */
 // main.js
 
@@ -18,6 +18,8 @@ function createWindow() {
     alwaysOnTop: true,
     // width: 310,
     // height: 735,
+    // width: 1000,
+    // height: 940,
     width: 310,
     height: 940,
     webPreferences: {
